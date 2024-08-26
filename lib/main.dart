@@ -30,6 +30,7 @@ void main() async {
 
   final dbClient = FirestoreDbClient();
   final playlistRepository = PlaylistRepository(dbClient: dbClient);
+  playlistRepository.createUserRecommendations();
 
   runApp(
     MyApp(

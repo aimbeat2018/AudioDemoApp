@@ -40,4 +40,21 @@ class PlaylistRepository {
       throw Exception('Error getting the playlist doc: $err');
     }
   }
+
+  Future createUserRecommendations() async {
+    dbClient.set(
+      id: 'user_1',
+      entity: 'userRecommendations',
+      data: UserRecommendations.sampleUserRecommendations.toJson(),
+    );
+  }
+
+ /* Future createUserPlaylist() async {
+
+    dbClient.set(
+      id: 'user_1',
+      entity: 'playlists',
+      data: Playlist.samplePlaylists.asMap(),
+    );
+  }*/
 }

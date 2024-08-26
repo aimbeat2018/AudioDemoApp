@@ -9,7 +9,9 @@ import '../../state/audio_player/audio_player_bloc.dart';
 import '../../state/playlist/playlist_bloc.dart';
 
 part 'widgets/_playlist_header.dart';
+
 part 'widgets/_playlist_song_list.dart';
+
 part 'widgets/_playlist_toolbar.dart';
 
 class PlaylistScreen extends StatelessWidget {
