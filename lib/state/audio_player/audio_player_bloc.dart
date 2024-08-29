@@ -35,13 +35,19 @@ class AudioPlayerBloc extends Bloc<AudioPlayerEvent, AudioPlayerState> {
       _audioHandler.mediaItem,
       AudioService.position,
       (playbackState, mediaItems, mediaItem, position) {
+
         final audio =
             (mediaItem == null) ? null : Song.fromMediaItem(mediaItem);
 
+        List<MediaItem> mediaItems = event.song.map((song) {
+          return song.toMediaItem();
+        }).toList();
+
         final queue = mediaItems.map((e) => Song.fromMediaItem(e)).toList();
+
         return AudioPlayerData<Song>(
           audio: audio,
-          queue: queue,
+          queue: event.song,
           playbackState: playbackState,
           currentAudioDuration: audio?.duration,
           currentAudioPosition: position,
@@ -90,9 +96,21 @@ class AudioPlayerBloc extends Bloc<AudioPlayerEvent, AudioPlayerState> {
     SetAudioEvent event,
     Emitter<AudioPlayerState> emit,
   ) async {
+    List<MediaItem> mediaItems = event.song.map((song) {
+      return song.toMediaItem();
+    }).toList();
+    // List<MediaItem> mediaItems = event.song.map((song) {
+    //   return MediaItem(id: song.audioUrl,title: song.title);
+    // }).toList();
     await _audioHandler.removeQueueItemAt(0);
-    await _audioHandler.addQueueItem(event.song.toMediaItem());
+    await _audioHandler.updateQueue(mediaItems);
+    await _audioHandler.queue.publish();
     await _audioHandler.play();
     emit(state.copyWith(status: AudioPlayerStatus.playing));
+
+    // await _audioHandler.removeQueueItemAt(0);
+    // await _audioHandler.addQueueItem(event.song.toMediaItem());
+    // await _audioHandler.play();
+    // emit(state.copyWith(status: AudioPlayerStatus.playing));
   }
 }

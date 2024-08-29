@@ -65,7 +65,7 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(
             create: (context) => AudioPlayerBloc(audioHandler: audioHandler)
-              ..add(LoadAudioPlayerEvent()),
+              ..add(LoadAudioPlayerEvent(song: [])),
           ),
         ],
         child: MaterialApp(

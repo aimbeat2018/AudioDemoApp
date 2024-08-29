@@ -7,14 +7,23 @@ sealed class AudioPlayerEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class LoadAudioPlayerEvent extends AudioPlayerEvent {}
+class LoadAudioPlayerEvent extends AudioPlayerEvent {
+  final List<Song> song;
+  // final Song song;
+
+  const LoadAudioPlayerEvent({required this.song});
+
+  @override
+  List<Object> get props => [song];
+}
 
 class PlayAudioEvent extends AudioPlayerEvent {}
 
 class PauseAudioEvent extends AudioPlayerEvent {}
 
 class SetAudioEvent extends AudioPlayerEvent {
-  final Song song;
+   final List<Song> song;
+  //final Song song;
 
   const SetAudioEvent({required this.song});
 

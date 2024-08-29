@@ -18,7 +18,8 @@ class _PlaylistSongList extends StatelessWidget {
         final song = playlist.songs[index];
         return ListTile(
           onTap: () {
-            context.read<AudioPlayerBloc>().add(SetAudioEvent(song: song));
+            context.read<AudioPlayerBloc>().add(LoadAudioPlayerEvent(song: playlist.songs));
+            context.read<AudioPlayerBloc>().add(SetAudioEvent(song: playlist.songs));
           },
           leading: Image.network(
             playlist.imageUrl!,
